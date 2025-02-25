@@ -1,0 +1,61 @@
+{%include 'public_header.html'%}
+
+<!-- Hero Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-start">
+                <div class="col-lg-8 text-center text-lg-start">
+<center>
+	<form method="post" style="padding-left: 600px;">
+	<h1 style="color: white;">USER REGISTRATION</h1>
+	<table class="table" style="width:500px;color:white;">
+		<tr>
+			<th>FIRST NAME</th> 
+			<td><input type="text" required class="form-control" name="first_name"></td>
+		</tr>
+		<tr>
+			<th>LAST NAME</th>
+			<td><input type="text" required class="form-control"  name="last_name"></td>
+		</tr>
+		<tr>
+			<th>HOUSE NAME</th>
+			<td><input type="text" required class="form-control"  name="house_name"></td>
+		</tr>
+		<tr>
+			<th>PLACE</th>
+			<td><input type="text" required class="form-control"  name="place"></td>
+		</tr>
+		<tr>
+			<th>PHONE</th>
+			<td><input type="tel" class="form-control"  required  pattern="[0-9]{10}" maxlength="10" name="phn"></td>
+		</tr>
+		<tr>
+			<th>EMAIL</th>
+			<td><input type="text" required class="form-control"  name="email"></td>
+		</tr>
+		<tr>
+			<th>USERNAME</th>
+			<td><input type="text" required class="form-control"  name="username">
+			</td>
+		</tr>
+		<tr>
+			<th>PASSWORD</th>
+			<td><input type="password" required class="form-control"  name="password">
+			</td>
+		</tr>
+		<tr>
+			<td align="center" colspan="2"><input type="submit" class="btn btn-success" name="submit" value="REGISTER" style="background-color: #13C5DD; color: white;"></td>
+		</tr>
+	</table>
+</form>
+</center>
+
+       				 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Hero End -->
+
+
+{%include 'footer.html'%}
