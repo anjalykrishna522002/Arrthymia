@@ -1,0 +1,31 @@
+{%include 'user_header.html'%}
+<!-- Hero Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-start">
+                <div class="col-lg-8 text-center text-lg-start">
+                	</div>
+            </div>
+        </div>
+    </div>
+<center>
+	<form >
+	<h1 style="color: black;">PREDICTIONS</h1>
+	<table class="table table-striped" style="width:500px;color: white;">
+		<tr>
+			<th>Date</th>
+			<th>Result</th>
+		</tr>
+		{% for i in data['prediction']%}
+		<tr>
+			<td>{{i['date']}}</td>
+			<td>{{i['result']}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</form>
+</center>
+       				 
+                
+<!-- Hero End -->
+{%include 'footer.html'%}
