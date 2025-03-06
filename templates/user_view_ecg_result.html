@@ -1,0 +1,42 @@
+<!-- {%include 'user_header.html'%} -->
+
+<br>
+<br>
+
+<center>
+<form method="post">
+	<h2>View Result</h2>
+	<table class="table table-striped" style="width: 1000px;">
+		<tr>
+			<th>Image</th>
+			<th>OutPut</th>
+			<th>Details</th>
+			<th>Date</th>
+			<th>Doctors</th>
+		</tr>
+
+		
+			{% for i in data['view']%}
+			<tr>
+			<td><img src="/{{i['ecg_img']}}" width="150px" height="150px"></td>
+			<td>{{i['val']}}</td>
+			<td>{{i['ecg_result']}}</td>
+			<td>{{i['date']}}</td>
+			
+			{% if i['val'] == 'Normal' %}
+			<td>
+				<h4>Normal Condition</h4>
+			</td>
+			{% else %}
+			<td><a href="us_viewdr" class="btn btn-primary">View Doctors</a></td>
+				</tr>
+			{% endif %}
+			{% endfor %}
+	
+	</table>
+</form>
+
+</center>
+
+
+<!-- {%include 'footer.html'%} -->
