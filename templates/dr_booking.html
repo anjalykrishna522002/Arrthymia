@@ -1,0 +1,58 @@
+{% include 'dr_header.html' %} 
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-5" style="background-image: url('/static/img/b3.jpg'); background-size: cover; background-position: center;height:600px;" >
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-6">  <!-- Right-aligned section -->
+                <div class="glass-form p-4 mb-4">
+                    <h1 class="text-center">BOOKINGS</h1>
+                    <table class="table text-dark">
+                        <tr>
+                            <th>FIRST NAME</th>
+                            <th>LAST NAME</th>
+                            <th>DATE AND TIME</th>
+                            <th>BOOK DATE</th>
+                            <th>STATUS</th>
+                            
+                        </tr>
+                        {% for row in data['patients'] %}
+                        <tr>
+                            <td>{{row['first_name']}}</td>
+                            <td>{{row['last_name']}}</td>
+                            <td>{{row['date_time']}}</td>
+                            <td>{{row['book_date']}}</td>
+                            <td>{{row['status']}}</td>
+                            <td>
+                                {% if row['status']=='pending' %}
+                                <a class="btn btn-success" href="?action=app&id={{row['booking_id']}}">Approve</a>
+                                <a class="btn btn-danger" href="?action=rej&id={{row['booking_id']}}">Reject</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+{% include 'footer.html' %}
+
+<style>
+    .glass-form {
+        width: 100%;
+        max-width: 700px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: black;
+    }
+    .table th, .table td {
+        color: black;
+    }
+</style>
