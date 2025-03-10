@@ -1,0 +1,74 @@
+{% include 'user_header.html' %}
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-5" style="background-image: url('/static/img/complaints.jpg'); background-size: cover; background-position: center;height:600px;" >
+
+    <div class="container py-5">
+        <div class="row justify-content-start">
+            <div class="col-lg-8 text-center text-lg-start">
+                <center>
+                    <form method="post" style="padding-left: 600px;">
+                        <h1 style="color: white; padding-left: 150px;">COMPLAINTS</h1>
+                        <table class="table" style="width:500px;color:white;">
+                            <tr>
+                                <th>COMPLAINT</th>
+                                <td><input type="text" required class="form-control" name="complaint"></td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2"><input type="submit" class="btn btn-success" name="submit" value="SEND" style="background-color: #13C5DD; color: white;"></td>
+                            </tr>
+                        </table>
+                        <table class="table complaint-table" style="width: 600px">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Complaints</th>
+                                    <th>Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in data['view'] %}
+                                <tr>
+                                    <td>{{ i['date_time'] }}</td>
+                                    <td>{{ i['complaint'] }}</td>
+                                    <td>{{ i['reply'] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+{% include 'footer.html' %}
+
+<!-- Add custom styles for complaint table -->
+<style>
+    .complaint-table {
+        background-color: white;
+        color: black;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .complaint-table th,
+    .complaint-table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .complaint-table th {
+        background-color: #f4f4f4;
+    }
+
+    .complaint-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .complaint-table tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
