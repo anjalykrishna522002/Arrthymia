@@ -1,0 +1,168 @@
+{% include 'admin_header.html' %}
+
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-5" style="background-image: url('/static/img/a3.jpg'); background-size: cover; background-position: center;height:1000px;">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                
+                <style>
+                    /* White Table Style */
+                    .white-table {
+                        width: 100%;
+                        background-color: white;
+                        border-radius: 10px;
+                        padding: 10px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        margin: auto; /* Centering */
+                    }
+
+                    .white-table th, .white-table td {
+                        padding: 12px;
+                        text-align: center;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                    }
+
+                    .white-table thead {
+                        background: linear-gradient(to right, #007BFF, #0056b3);
+                        color: white;
+                    }
+
+                    .white-table tbody tr:nth-child(even) {
+                        background-color: rgba(0, 0, 0, 0.05);
+                    }
+
+                    /* Center Heading */
+                    .page-title {
+                        color: black;
+                        text-align: center;
+                        font-weight: bold;
+                        margin-bottom: 20px;
+                    }
+
+                    /* Centered Search Box */
+                    .search-box {
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        gap: 15px;
+                        margin-bottom: 20px;
+                    }
+
+                    .search-box input {
+                        padding: 10px;
+                        border-radius: 6px;
+                        border: 1px solid #ccc;
+                        width: 220px;
+                        transition: 0.3s;
+                    }
+
+                    .search-box input:focus {
+                        border-color: #007BFF;
+                        box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+                    }
+
+                    /* Responsive */
+                    @media (max-width: 768px) {
+                        .search-box {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                        .search-box input {
+                            width: 80%;
+                        }
+                        .white-table {
+                            width: 100%;
+                        }
+                        .white-table th, .white-table td {
+                            padding: 8px;
+                            font-size: 14px;
+                        }
+                    }
+                </style>
+
+                <!-- Centered Heading -->
+                <h1 class="page-title">APPROVE / REJECT DOCTORS</h1>
+
+                <!-- Centered Search Inputs -->
+                <div class="search-box">
+                    <input type="text" id="searchName" class="form-control" placeholder="Search by Name">
+                    <input type="text" id="searchQualification" class="form-control" placeholder="Search by Qualification">
+                </div>
+
+                <!-- Centering Table -->
+                <div class="d-flex justify-content-center">
+                    <table class="table white-table">
+                        <thead>
+                            <tr>
+                                <th>FIRST NAME</th>
+                                <th>LAST NAME</th>
+                                <th>HOUSE NAME</th>
+                                <th>PLACE</th>
+                                <th>LANDMARK</th>
+                                <th>QUALIFICATION</th>
+                                <th>PHONE</th>
+                                <th>EMAIL</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in data['doctor'] %}
+                                <tr class="doctor-row">
+                                    <td>{{ row['first_name'] }}</td>
+                                    <td>{{ row['last_name'] }}</td>
+                                    <td>{{ row['house_name'] }}</td>
+                                    <td>{{ row['place'] }}</td>
+                                    <td>{{ row['landmark'] }}</td>
+                                    <td>{{ row['qualification'] }}</td>
+                                    <td>{{ row['phone'] }}</td>
+                                    <td>{{ row['email'] }}</td>
+                                    <td>
+                                        {% if row['user_type'] == 'pending' %}
+                                            <a class="btn btn-success" href="?action=app&id={{ row['doctor_id'] }}&log_id={{ row['login_id'] }}" style="background-color: #13C5DD; color: white;">Approve</a>
+                                        {% else %}
+                                            <a class="btn btn-danger" href="?action=block&id={{ row['doctor_id'] }}&log_id={{ row['login_id'] }}" style="background-color: #DC3545; color: white;">Block</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+
+{% include 'footer.html' %}
+
+<!-- JavaScript for Live Search -->
+<script>
+    document.getElementById('searchName').addEventListener('input', function() {
+        filterTable();
+    });
+
+    document.getElementById('searchQualification').addEventListener('input', function() {
+        filterTable();
+    });
+
+    function filterTable() {
+        var nameQuery = document.getElementById('searchName').value.toLowerCase();
+        var qualificationQuery = document.getElementById('searchQualification').value.toLowerCase();
+        var rows = document.querySelectorAll('.doctor-row');
+
+        rows.forEach(function(row) {
+            var firstName = row.cells[0].textContent.toLowerCase();
+            var lastName = row.cells[1].textContent.toLowerCase();
+            var qualification = row.cells[5].textContent.toLowerCase();
+
+            if (firstName.includes(nameQuery) && qualification.includes(qualificationQuery)) {
+                row.style.display = ''; // Show row
+            } else {
+                row.style.display = 'none'; // Hide row
+            }
+        });
+    }
+</script>
