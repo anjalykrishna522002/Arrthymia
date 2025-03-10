@@ -1,0 +1,161 @@
+{% include 'user_header.html' %}
+<div style="margin-bottom: 1em; background: url('/static/assets/img/inter.jpg'); height: 300px; width: 100%; background-size: cover;">
+</div>
+
+<!-- Hero Start -->
+ 
+<h1 class="card-header text-center">CONSULTING TIMES</h1>
+<div class="card-body">
+    <div class="row mb-4">
+        <!-- Search Bar -->
+        <div class="col-md-12 text-center">
+            <input type="text" id="doctorSearch" onkeyup="liveSearch()" class="form-control" placeholder="Search by Doctor's Name" style="max-width: 300px; margin: 0 auto;">
+        </div>
+    </div>
+
+    <div class="row">
+        {% for r in data['doctor'] %}
+        <div class="col-md-4 mb-4 doctor-card">
+            <div class="card shadow">
+                <!-- Full-Width Doctor Image -->
+                <img src="/{{ r['doctor_image'] }}" alt="Doctor's Profile" class="doctor-img">
+
+                <div class="card-body text-center">
+                    <!-- Doctor Name -->
+                    <h5 class="card-title text-primary">{{ r['first_name'] }} {{ r['last_name'] }}</h5>
+                    
+                    <!-- Consulting Details -->
+                    <div class="details">
+                        <p><strong>Day:</strong> {{ r['day'] }}</p>
+                        <p><strong>Start Time:</strong> {{ r['start_time'] }}</p>
+                        <p><strong>End Time:</strong> {{ r['end_time'] }}</p>
+                    </div>
+
+                    <!-- Ratings Section -->
+                    <p class="rating"><strong>Ratings:</strong> 
+                        {% set rating = r['rate']|int %}
+                        {% for i in range(5) %}
+                            {% if i < rating %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="d-grid gap-2">
+                        <a href="us_bookdr?cid={{ r['consulting_id'] }}" class="btn custom-btn">Request Appointment</a>
+                        <a href="us_reviewrate?doctor_id={{ r['doct_id'] }}" class="btn custom-btn-secondary">Rate & Review</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Hero End -->
+
+{% include 'footer.html' %}
+
+<!-- JavaScript for Live Search -->
+<script>
+    function liveSearch() {
+        var input, filter, cards, card, name, i, txtValue;
+        input = document.getElementById('doctorSearch');
+        filter = input.value.toUpperCase();
+        cards = document.querySelectorAll('.doctor-card');
+        for (i = 0; i < cards.length; i++) {
+            card = cards[i];
+            name = card.querySelector('.card-title');
+            if (name) {
+                txtValue = name.textContent || name.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+<!-- Updated CSS -->
+<style>
+    .doctor-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .doctor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Full-width doctor image */
+    .doctor-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .card-body {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
+    .details p {
+        margin: 5px 0;
+        font-size: 1rem;
+    }
+
+    .rating {
+        margin: 10px 0;
+    }
+
+    /* Stylish Buttons */
+    .custom-btn {
+        background: linear-gradient(135deg, #13C5DD, #007bff);
+        color: white;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 50px;
+        text-transform: uppercase;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        text-align: center;
+        display: block;
+    }
+
+    .custom-btn:hover {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        transform: scale(1.05);
+    }
+
+    .custom-btn-secondary {
+        background: linear-gradient(135deg, #28a745, #218838);
+        color: white;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 50px;
+        text-transform: uppercase;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        text-align: center;
+        display: block;
+    }
+
+    .custom-btn-secondary:hover {
+        background: linear-gradient(135deg, #218838, #1e7e34);
+        color: white;
+        transform: scale(1.05);
+    }
+</style>
