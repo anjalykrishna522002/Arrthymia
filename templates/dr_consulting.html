@@ -1,0 +1,119 @@
+{% include 'dr_header.html' %}
+
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-5" style="background-image: url('/static/img/b3.jpg'); background-size: cover; background-position: center; height: 800px;">
+    <div class="container py-5">
+        <div class="row justify-content-end"> <!-- Align content to the right -->
+            <div class="col-lg-6">
+                <div class="glass-form p-4 mb-4">
+                    <h1 class="text-center text-black">CONSULTING TIME</h1>
+                    <form method="post">
+                        {% if data['consult'] %}
+                        <table class="table text-black">
+                            <tr>
+                                <th>DAY</th>
+                                <td>
+                                    <select name="day" class="form-control" required>
+                                        <option value="">Select a Day</option>
+                                        <option value="Sunday" {% if data['consult'][0]['day'] == 'Sunday' %}selected{% endif %}>Sunday</option>
+                                        <option value="Monday" {% if data['consult'][0]['day'] == 'Monday' %}selected{% endif %}>Monday</option>
+                                        <option value="Tuesday" {% if data['consult'][0]['day'] == 'Tuesday' %}selected{% endif %}>Tuesday</option>
+                                        <option value="Wednesday" {% if data['consult'][0]['day'] == 'Wednesday' %}selected{% endif %}>Wednesday</option>
+                                        <option value="Thursday" {% if data['consult'][0]['day'] == 'Thursday' %}selected{% endif %}>Thursday</option>
+                                        <option value="Friday" {% if data['consult'][0]['day'] == 'Friday' %}selected{% endif %}>Friday</option>
+                                        <option value="Saturday" {% if data['consult'][0]['day'] == 'Saturday' %}selected{% endif %}>Saturday</option>
+                                    </select>
+                                </td>
+                            </tr>      
+                            <tr>
+                                <th>START TIME</th>
+                                <td><input type="time" required class="form-control" name="start_time" value="{{data['consult'][0]['start_time']}}"></td>
+                            </tr>
+                            <tr>
+                                <th>END TIME</th>
+                                <td><input type="time" required class="form-control" name="end_time" value="{{data['consult'][0]['end_time']}}"></td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <input type="submit" class="btn btn-success" name="update" value="UPDATE" style="background-color: #13C5DD; color: white;">
+                                </td>
+                            </tr>
+                        </table>
+                        {% else %}
+                        <table class="table text-black">
+                            <tr>
+                                <th>DAY</th>
+                                <td>
+                                    <select name="day" class="form-control" required>
+                                        <option value="">Select a Day</option>
+                                        <option value="Sunday">Sunday</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>START TIME</th>
+                                <td><input type="time" required class="form-control" name="start_time"></td>
+                            </tr>
+                            <tr>
+                                <th>END TIME</th>
+                                <td><input type="time" required class="form-control" name="end_time"></td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2">
+                                    <input type="submit" class="btn btn-success" name="submit" value="ENTER" style="background-color: #13C5DD; color: white;">
+                                </td>
+                            </tr>
+                        </table>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <div class="glass-form p-4">
+                    <h1 class="text-center text-black">CONSULTING TIME RECORDS</h1>
+                    <table class="table text-black">
+                        <tr>
+                            <th>DAY</th>
+                            <th>START TIME</th>
+                            <th>END TIME</th>
+                            <th>ACTION</th>
+                        </tr>
+                        {% for c in data['times'] %}
+                        <tr>
+                            <td>{{c['day']}}</td>
+                            <td>{{c['start_time']}}</td>
+                            <td>{{c['end_time']}}</td>
+                            <td>
+                                <a class="btn btn-success" href="?action=update&cid={{c['consulting_id']}}" style="background-color: #13C5DD; color: white;">Update</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+{% include 'footer.html' %}
+
+<!-- Glass Form CSS -->
+<style>
+    .glass-form {
+        width: 100%;
+        max-width: 600px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .table th, .table td {
+        color: black;
+    }
+</style>
